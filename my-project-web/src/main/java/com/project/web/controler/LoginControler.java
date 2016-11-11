@@ -90,7 +90,7 @@ public class LoginControler {
             }else{
                 //注册失败
                 model.setViewName("/register");
-                model.addObject("message","false");
+                model.addObject("registermessage","false");
                 model.addObject("phone",user.getPhone());
                 model.addObject("email",user.getEmail());
 
@@ -144,7 +144,12 @@ public class LoginControler {
                 Subject currentUser = SecurityUtils.getSubject();
 
                 UsernamePasswordToken token = new UsernamePasswordToken(phone, password);
-                token.setRememberMe(true);
+
+
+                Object remember = request.getParameter("remember");
+                if(null != remember){
+                    token.setRememberMe(true);
+                }
                 System.out.println("为了验证登录用户而封装的token为" + ReflectionToStringBuilder.toString(token, ToStringStyle.MULTI_LINE_STYLE));
                 //获取当前的Subject
                 try {

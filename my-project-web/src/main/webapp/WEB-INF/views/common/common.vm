@@ -1,3 +1,4 @@
+<script src="${rc.contextPath}/js/layer/layer.js"></script>
 <script type="text/javascript">
     contextPath="${rc.contextPath}";
 </script>

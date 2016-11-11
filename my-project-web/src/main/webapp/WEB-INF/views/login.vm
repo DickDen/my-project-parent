@@ -8,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
     <link type="text/css" rel="stylesheet" href="${rc.contextPath}/css/login.css">
     <script type="text/javascript" src="${rc.contextPath}/js/JQuery/jQuery-2.1.3.min.js"></script>
-    <script type="text/javascript" src="${rc.contextPath}/js/register.js"></script>
+    <script type="text/javascript" src="${rc.contextPath}/js/login.js"></script>
 </head>
 <body class="login_bj" >
     #parse("common/common.vm")
@@ -22,16 +22,22 @@
                     <span id="userCue" style="float:left" class="cue">
                         #if($!message == "false")
                             <font color='red' class="font"><b>$!info</b></font>
-                        #elseif($!oneUser == "false")
-                            <font color='red' class="font"><b>×$!OnlyOneUser</b></font>
                         #else
                             登录
+                        #end
+                        <input type="hidden" class="hiddenOnlyOneUser" value="$!OnlyOneUser">
+                        #if($!oneUser == "false")
+                            #*<font color='red' class="font"><b>×$!OnlyOneUser</b></font>*#
+                            <script type="text/javascript">
+                                var msg = $(".hiddenOnlyOneUser").val();
+                                layer.msg(msg);
+                            </script>
                         #end
                     </span>
                     <input name="phone" type="text" id="phone" class="kuang_txt" onchange="checkLoginPhone()" placeholder="手机号" value="$!phone">
                     <input name="password" id="password" type="password" class="kuang_txt" placeholder="密码">
                     <div>
-                        <a href="${rc.contextPath}/user/toChangePassword">忘记密码？</a><input name="" type="checkbox" value="" checked><span>记住我</span>
+                        <a href="${rc.contextPath}/user/toChangePassword">忘记密码？</a><input name="remember" class="remberMe" type="checkbox" value="" checked><span>记住我</span>
                     </div>
                     <input name="登录" id="login" type="button" class="btn_zhuce" value="登录">
 

@@ -37,7 +37,7 @@
                 <form action="${rc.contextPath}/user/register" id="regUser" method="POST" datatype="user" >
                     #*<span id="userCue" style="float:left" class="cue">注册请注意格式!</span>*#
                     <span id="userCue" style="float:left" class="cue">
-                        #if($!message == "false")
+                        #if($!registermessage == "false")
                             <font color='red' class="font"><b>×注册失败，请重新注册!</b></font>
                         #else
                             注册请注意格式!

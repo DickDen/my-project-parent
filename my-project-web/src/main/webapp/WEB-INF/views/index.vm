@@ -16,7 +16,6 @@
     <script src="${rc.contextPath}/build/js/script.js"></script>
     <script src="${rc.contextPath}/build/js/sendEmail.js"></script>
     <script src="${rc.contextPath}/build/js/checkEmail.js"></script>
-    <script src="${rc.contextPath}/js/layer/layer.js"></script>
     <script type="text/javascript">
 
         function show(){
