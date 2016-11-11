@@ -13,7 +13,7 @@ public class OnlyOneUser implements Serializable {
 
     private String utr;
 
-    private String syzt = "Y";
+    private int syzt = 0;
 
     public OnlyOneUser(){
 
@@ -28,7 +28,7 @@ public class OnlyOneUser implements Serializable {
         this.utr = utr;
     }
 
-    public OnlyOneUser(String phone, String utr, String syzt) {
+    public OnlyOneUser(String phone, String utr, int syzt) {
         this.phone = phone;
         this.utr = utr;
         this.syzt = syzt;
@@ -50,11 +50,11 @@ public class OnlyOneUser implements Serializable {
         this.utr = utr;
     }
 
-    public String getSyzt() {
+    public int getSyzt() {
         return syzt;
     }
 
-    public void setSyzt(String syzt) {
+    public void setSyzt(int syzt) {
         this.syzt = syzt;
     }
 
@@ -65,17 +65,17 @@ public class OnlyOneUser implements Serializable {
 
         OnlyOneUser that = (OnlyOneUser) o;
 
-        if (phone != null ? !phone.equals(that.phone) : that.phone != null) return false;
-        if (utr != null ? !utr.equals(that.utr) : that.utr != null) return false;
-        return syzt != null ? syzt.equals(that.syzt) : that.syzt == null;
+        if (syzt != that.syzt) return false;
+        if (!phone.equals(that.phone)) return false;
+        return utr.equals(that.utr);
 
     }
 
     @Override
     public int hashCode() {
-        int result = phone != null ? phone.hashCode() : 0;
-        result = 31 * result + (utr != null ? utr.hashCode() : 0);
-        result = 31 * result + (syzt != null ? syzt.hashCode() : 0);
+        int result = phone.hashCode();
+        result = 31 * result + utr.hashCode();
+        result = 31 * result + syzt;
         return result;
     }
 

@@ -30,9 +30,9 @@ public class User  implements Serializable {
     private String createtime;
 
     /**
-     * 使用状态，Y：可用，N：删除状态，不可用
+     * 使用状态，0：正常，1：删除状态，不可用, 2:账号禁用
      */
-    private String syzt ;
+    private int syzt = 0;
 
     private String username;
 
@@ -56,7 +56,7 @@ public class User  implements Serializable {
         this.phone = phone;
     }
 
-    public User(Long id, String phone, String password, String nicheng, Byte sex, BigDecimal money, String updtime, String createtime, String syzt, String username, String address, String email, String salt, String yaoqingma, String qq) {
+    public User(Long id, String phone, String password, String nicheng, Byte sex, BigDecimal money, String updtime, String createtime, int syzt, String username, String address, String email, String salt, String yaoqingma, String qq) {
         this.id = id;
         this.phone = phone;
         this.password = password;
@@ -138,11 +138,11 @@ public class User  implements Serializable {
         this.createtime = createtime;
     }
 
-    public void setSyzt(String syzt) {
+    public void setSyzt(int syzt) {
         this.syzt = syzt;
     }
 
-    public String getSyzt() {
+    public int getSyzt() {
         return syzt;
     }
 

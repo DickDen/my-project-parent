@@ -12,7 +12,7 @@
         VALUES (
           #{phone,jdbcType=VARCHAR},
           #{utr,jdbcType=VARCHAR},
-          #{syzt,jdbcType=VARCHAR}
+          #{syzt,jdbcType=INTEGER}
         )
     </insert>
 
@@ -23,7 +23,7 @@
             utr = #{utr,jdbcType=VARCHAR},
         </if>
         <if test="syzt != null">
-            syzt = #{syzt,jdbcType=VARCHAR}
+            syzt = #{syzt,jdbcType=INTEGER}
         </if>
         where phone = #{phone,jdbcType=VARCHAR}
     </update>
@@ -40,7 +40,7 @@
             and  utr = #{utr,jdbcType=VARCHAR}
         </if>
         <if test="syzt != null">
-            and syzt = #{syzt,jdbcType=VARCHAR}
+            and syzt = #{syzt,jdbcType=INTEGER}
         </if>
     </select>
 

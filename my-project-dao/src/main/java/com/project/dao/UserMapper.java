@@ -11,7 +11,7 @@ public interface UserMapper {
      * @param user
      * @return
      */
-    int deleteByPrimaryKey(User user);
+    int updateUser(User user);
 
     /**
      * 插入一条新数据
@@ -27,7 +27,7 @@ public interface UserMapper {
     List<User> selectUserList(User user);
 
     /**
-     * 根据条件查询用户信息
+     * 根据某一用户特征查询信息
      * @param user
      * @return
      */

@@ -49,8 +49,6 @@ public class MyShiro extends AuthorizingRealm {
         String currentUsername = (String)super.getAvailablePrincipal(principals);
         SimpleAuthorizationInfo simpleAuthorInfo = new SimpleAuthorizationInfo();
         //实际中可能会像上面注释的那样从数据库取得
-        //if(null!=currentUsername && "18636967836".equals(currentUsername)){
-            //添加一个角色,不是配置意义上的添加,而是证明该用户拥有admin角色
 
         List<String> roleList = new ArrayList<String>();
         List<String> permissionList = new ArrayList<String>();
@@ -70,19 +68,16 @@ public class MyShiro extends AuthorizingRealm {
             }
         }
 
-            //roleList.add("admin");
-            simpleAuthorInfo.addRoles(roleList);
-            //simpleAuthorInfo.addRole("admin");
-            //添加权限
-            //simpleAuthorInfo.addStringPermission("admin:manage");
-            //permissionList.add("admin:manage");
-            simpleAuthorInfo.addStringPermissions(permissionList);
-            //logger.info("已为用户["+currentUsername+"]赋予了[admin]角色和[admin:manage]权限");
-            return simpleAuthorInfo;
-        /*}else if(null!=currentUsername && "18636967833".equals(currentUsername)){
-            logger.info("当前用户[18636967833]无授权");
-            return simpleAuthorInfo;
-        }*/
+        //roleList.add("admin");
+        simpleAuthorInfo.addRoles(roleList);
+        //simpleAuthorInfo.addRole("admin");
+        //添加权限
+        //simpleAuthorInfo.addStringPermission("admin:manage");
+        //permissionList.add("admin:manage");
+        simpleAuthorInfo.addStringPermissions(permissionList);
+        //logger.info("已为用户["+currentUsername+"]赋予了[admin]角色和[admin:manage]权限");
+        return simpleAuthorInfo;
+
         //若该方法什么都不做直接返回null的话,就会导致任何用户访问/admin/listUser.jsp时都会自动跳转到unauthorizedUrl指定的地址
         //详见applicationContext.xml中的<bean id="shiroFilter">的配置
         //return null;
@@ -116,9 +111,18 @@ public class MyShiro extends AuthorizingRealm {
         String username = token.getUsername();
         User user = userService.checkUserWithConditions(new User(username));
         if(user != null) {
-            AuthenticationInfo authcInfo = new SimpleAuthenticationInfo(username, user.getPassword(), this.getName());
-            this.setSession("user", user);
-            return authcInfo;
+
+            //用户正常
+            if(user.getSyzt() == 0){
+                AuthenticationInfo authcInfo = new SimpleAuthenticationInfo(username, user.getPassword(), this.getName());
+                this.setSession("user", user);
+                return authcInfo;
+            }else if(user.getSyzt() == 1){
+                throw new LockedAccountException();
+            }
+
+        }else{
+            throw new UnknownAccountException();
         }
         //没有返回登录用户名对应的SimpleAuthenticationInfo对象时,就会在LoginController中抛出UnknownAccountException异常
         return null;

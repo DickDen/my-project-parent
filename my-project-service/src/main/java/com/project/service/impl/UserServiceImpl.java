@@ -56,7 +56,7 @@ public class UserServiceImpl implements UserService {
             YqmInfo selYqmInfo = yqmInfoMapper.selectYqmInfoByYqm(yqmInfo);
             selYqmInfo.setUsecount(selYqmInfo.getUsecount()+1);
             yqmInfoMapper.updateYqmCount(selYqmInfo);
-            oneUserMapper.addOnlyOneUserMessage(new OnlyOneUser(user.getPhone(),utr,"Y"));
+            oneUserMapper.addOnlyOneUserMessage(new OnlyOneUser(user.getPhone(),utr,0));
             return 1;
         }else{
             //已经存在
@@ -104,7 +104,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deleteUser(User user) {
         DBContextHolder.setDataSource("dataSourceOne");
-        userMapper.deleteByPrimaryKey(user);
+        userMapper.updateUser(user);
     }
 
     @Override

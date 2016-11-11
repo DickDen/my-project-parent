@@ -38,7 +38,7 @@
     </style>
 </head>
 <body>
-#parse("common/time.vm")
+#*#parse("common/time.vm")*#
 #parse("common/common.vm")
 #parse("common/head.vm")
 <div class="header">
