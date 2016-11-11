@@ -141,11 +141,12 @@ public class LoginControler {
                 String salt = selUser.getSalt();
                 //对登录密码进行加密
                 password = MD5.md5Password(salt,password);
+                Subject currentUser = SecurityUtils.getSubject();
+
                 UsernamePasswordToken token = new UsernamePasswordToken(phone, password);
-                //token.setRememberMe(true);
+                token.setRememberMe(true);
                 System.out.println("为了验证登录用户而封装的token为" + ReflectionToStringBuilder.toString(token, ToStringStyle.MULTI_LINE_STYLE));
                 //获取当前的Subject
-                Subject currentUser = SecurityUtils.getSubject();
                 try {
                     //在调用了login方法后,SecurityManager会收到AuthenticationToken,并将其发送给已配置的Realm执行必须的认证检查
                     //每个Realm都能在必要时对提交的AuthenticationTokens作出反应

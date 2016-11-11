@@ -4,10 +4,14 @@
   <resultMap id="BaseResultMap" type="com.project.entity.UserRole">
     <result column="phone" jdbcType="VARCHAR" property="phone" />
     <result column="rolename" jdbcType="VARCHAR" property="rolename" />
+    <collection property="roleAuthorities" ofType="com.project.entity.RoleAuthority">
+      <result column="rolename" jdbcType="VARCHAR" property="rolename" />
+      <result column="authorityname" jdbcType="VARCHAR" property="authorityname" />
+    </collection>
   </resultMap>
 
   <sql id="Base_Column_List">
-    phone, rolename
+    ur.phone, ur.rolename,ra.rolename, ra.authorityname
   </sql>
 
   <insert id="insertIntoList" parameterType="java.util.List">
@@ -29,8 +33,8 @@
   <select id="selectWithConditions" parameterType="com.project.entity.UserRole" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
-    from user_role
-    where 1 = 1
+    from user_role ur, role_authority ra
+    where 1 = 1 and ur.rolename = ra.rolename
     <if test="phone != null">
       and phone = #{phone,jdbcType=VARCHAR}
     </if>

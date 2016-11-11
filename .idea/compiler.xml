@@ -17,56 +17,6 @@
       <profile default="true" name="Default" enabled="false">
         <processorPath useClasspath="true" />
       </profile>
-      <profile default="false" name="Maven default annotation processors profile" enabled="true">
-        <sourceOutputDir name="target/generated-sources/annotations" />
-        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
-        <processorPath useClasspath="true" />
-        <module name="my-project-domain" />
-        <module name="project-domain" />
-      </profile>
-      <profile default="false" name="Annotation profile for project-common" enabled="true">
-        <sourceOutputDir name="target/generated-sources/annotations" />
-        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
-        <processorPath useClasspath="true" />
-        <module name="project-common" />
-      </profile>
-      <profile default="false" name="Annotation profile for project-web" enabled="true">
-        <sourceOutputDir name="target/generated-sources/annotations" />
-        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
-        <processorPath useClasspath="true" />
-        <module name="project-web" />
-      </profile>
-      <profile default="false" name="Annotation profile for project-service" enabled="true">
-        <sourceOutputDir name="target/generated-sources/annotations" />
-        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
-        <processorPath useClasspath="true" />
-        <module name="project-service" />
-      </profile>
-      <profile default="false" name="Annotation profile for project-dao" enabled="true">
-        <sourceOutputDir name="target/generated-sources/annotations" />
-        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
-        <processorPath useClasspath="true" />
-        <module name="project-dao" />
-      </profile>
-      <profile default="false" name="Annotation profile for my-project-entity" enabled="true">
-        <sourceOutputDir name="target/generated-sources/annotations" />
-        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
-        <processorPath useClasspath="true" />
-        <module name="my-project-entity" />
-      </profile>
-      <profile default="false" name="Annotation profile for my-project-common" enabled="true">
-        <sourceOutputDir name="target/generated-sources/annotations" />
-        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
-        <processorPath useClasspath="true" />
-        <module name="my-project-common" />
-      </profile>
       <profile default="false" name="Annotation profile for my-project-web" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
@@ -88,20 +38,28 @@
         <processorPath useClasspath="true" />
         <module name="my-project-dao" />
       </profile>
+      <profile default="false" name="Annotation profile for my-project-common" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+        <module name="my-project-common" />
+      </profile>
+      <profile default="false" name="Annotation profile for my-project-entity" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+        <module name="my-project-entity" />
+      </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="my-project-common" target="1.8" />
       <module name="my-project-dao" target="1.8" />
-      <module name="my-project-domain" target="1.5" />
       <module name="my-project-entity" target="1.8" />
       <module name="my-project-parent" target="1.8" />
       <module name="my-project-service" target="1.8" />
       <module name="my-project-web" target="1.8" />
-      <module name="project-common" target="1.8" />
-      <module name="project-dao" target="1.8" />
-      <module name="project-domain" target="1.5" />
-      <module name="project-service" target="1.8" />
-      <module name="project-web" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

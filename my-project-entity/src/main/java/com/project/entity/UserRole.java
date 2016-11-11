@@ -1,6 +1,8 @@
 package com.project.entity;
 
 
+import java.util.List;
+
 /**
  * 用户角色实体
  */
@@ -14,6 +16,11 @@ public class UserRole {
 
     public String getPhone() {
         return phone;
+    }
+
+    private List<RoleAuthority> roleAuthorities;
+
+    public UserRole() {
     }
 
     public UserRole(String phone, String rolename) {
@@ -31,6 +38,14 @@ public class UserRole {
 
     public void setRolename(String rolename) {
         this.rolename = rolename == null ? null : rolename.trim();
+    }
+
+    public List<RoleAuthority> getRoleAuthorities() {
+        return roleAuthorities;
+    }
+
+    public void setRoleAuthorities(List<RoleAuthority> roleAuthorities) {
+        this.roleAuthorities = roleAuthorities;
     }
 
     @Override

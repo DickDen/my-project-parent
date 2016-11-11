@@ -1,6 +1,10 @@
 package com.project.web.shiro;
 
+import com.project.entity.RoleAuthority;
 import com.project.entity.User;
+import com.project.entity.UserRole;
+import com.project.service.RoleAuthorityService;
+import com.project.service.UserRoleService;
 import com.project.service.UserService;
 import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
@@ -28,6 +32,10 @@ public class MyShiro extends AuthorizingRealm {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private UserRoleService userRoleService;
+    @Autowired
+    private RoleAuthorityService roleAuthorityService;
 
     /**
      * 为当前登录的Subject授予角色和权限
@@ -41,27 +49,43 @@ public class MyShiro extends AuthorizingRealm {
         String currentUsername = (String)super.getAvailablePrincipal(principals);
         SimpleAuthorizationInfo simpleAuthorInfo = new SimpleAuthorizationInfo();
         //实际中可能会像上面注释的那样从数据库取得
-        if(null!=currentUsername && "18636967836".equals(currentUsername)){
+        //if(null!=currentUsername && "18636967836".equals(currentUsername)){
             //添加一个角色,不是配置意义上的添加,而是证明该用户拥有admin角色
 
-            List<String> roleList = new ArrayList<String>();
-            List<String> permissionList = new ArrayList<String>();
-            roleList.add("admin");
-            //simpleAuthorInfo.addRoles(roleList);
+        List<String> roleList = new ArrayList<String>();
+        List<String> permissionList = new ArrayList<String>();
+        List<UserRole> userRoles = userRoleService.selectUserRoleWithPhone(new UserRole(currentUsername, null));
+        //用户具有的角色
+        if(userRoles != null && userRoles.size() > 0){
+            for(UserRole userRole:userRoles){
+                String rolename = userRole.getRolename();
+                roleList.add(rolename);
+                List<RoleAuthority> roleAuthorities = userRole.getRoleAuthorities();
+                //角色具有的权限
+                if(roleAuthorities != null && roleAuthorities.size() > 0){
+                    for(RoleAuthority roleAuthority:roleAuthorities){
+                        permissionList.add(rolename+":"+roleAuthority.getAuthorityname());
+                    }
+                }
+            }
+        }
+
+            //roleList.add("admin");
+            simpleAuthorInfo.addRoles(roleList);
             //simpleAuthorInfo.addRole("admin");
             //添加权限
-            simpleAuthorInfo.addStringPermission("admin:manage");
-            //permissionList.add("manage");
-            //simpleAuthorInfo.addStringPermissions(permissionList);
-            logger.info("已为用户["+currentUsername+"]赋予了[admin]角色和[admin:manage]权限");
+            //simpleAuthorInfo.addStringPermission("admin:manage");
+            //permissionList.add("admin:manage");
+            simpleAuthorInfo.addStringPermissions(permissionList);
+            //logger.info("已为用户["+currentUsername+"]赋予了[admin]角色和[admin:manage]权限");
             return simpleAuthorInfo;
-        }else if(null!=currentUsername && "18636967833".equals(currentUsername)){
+        /*}else if(null!=currentUsername && "18636967833".equals(currentUsername)){
             logger.info("当前用户[18636967833]无授权");
             return simpleAuthorInfo;
-        }
+        }*/
         //若该方法什么都不做直接返回null的话,就会导致任何用户访问/admin/listUser.jsp时都会自动跳转到unauthorizedUrl指定的地址
         //详见applicationContext.xml中的<bean id="shiroFilter">的配置
-        return null;
+        //return null;
     }
 
     /**

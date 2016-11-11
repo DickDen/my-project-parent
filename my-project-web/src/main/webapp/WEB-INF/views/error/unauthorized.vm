@@ -2,11 +2,19 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>unauthorized</title>
+    <title>访问受限</title>
+    <style type="text/css">
+        body {
+            background: #528036  url('../image/chart/background.jpg') no-repeat fixed 0 0;
+        };
+        p .unauthorized{
+            margin-bottom: 100px;
+        }
+    </style>
 </head>
 <body>
-
-    <p>您访问的资源需要权限！</p>
+    #parse("common/head.vm")
+    <p align="center" class="unauthorized">您访问的资源需要权限！</p>
 
 </body>
 </html>

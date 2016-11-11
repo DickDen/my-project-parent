@@ -12,6 +12,14 @@ public class Authority {
     /**  资源名  **/
     private String authorityname;
 
+    public Authority() {
+    }
+
+    public Authority(String authorityname, Integer id) {
+        this.authorityname = authorityname;
+        this.id = id;
+    }
+
     public Integer getId() {
         return id;
     }

@@ -16,6 +16,9 @@ public class RoleAuthority {
         return rolename;
     }
 
+    public RoleAuthority() {
+    }
+
     public RoleAuthority(String rolename, String authorityname) {
         this.rolename = rolename;
         this.authorityname = authorityname;
