@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50617
 File Encoding         : 65001
 
-Date: 2016-11-10 18:23:09
+Date: 2016-11-11 18:10:58
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -24,7 +24,7 @@ CREATE TABLE `authority` (
   `authorityname` varchar(255) NOT NULL COMMENT '资源名称',
   PRIMARY KEY (`id`),
   KEY `authorityname` (`authorityname`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of authority
@@ -42,14 +42,14 @@ DROP TABLE IF EXISTS `only_one_user`;
 CREATE TABLE `only_one_user` (
   `phone` varchar(20) NOT NULL COMMENT '用户登录的手机号',
   `utr` varchar(255) NOT NULL COMMENT '用户登录生成的随机字符串,',
-  `syzt` varchar(10) NOT NULL COMMENT '使用状态，Y：可用，N：删除状态，不可用'
+  `syzt` int(10) NOT NULL COMMENT '使用状态，0：正常，1：删除状态，不可用，2：账号禁用'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of only_one_user
 -- ----------------------------
-INSERT INTO `only_one_user` VALUES ('18636967836', '6ZyaBmgu', 'Y');
-INSERT INTO `only_one_user` VALUES ('18636967833', 'A7vzjjeF', 'Y');
+INSERT INTO `only_one_user` VALUES ('18636967836', 'sNvzZxhw', '0');
+INSERT INTO `only_one_user` VALUES ('18636967833', 'vMaNy3WS', '0');
 
 -- ----------------------------
 -- Table structure for pm_base_data
@@ -80,13 +80,14 @@ CREATE TABLE `role` (
   `rolename` varchar(255) NOT NULL COMMENT '角色名',
   PRIMARY KEY (`id`),
   KEY `rolename` (`rolename`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of role
 -- ----------------------------
 INSERT INTO `role` VALUES ('1', 'admin');
 INSERT INTO `role` VALUES ('2', 'manager');
+INSERT INTO `role` VALUES ('3', 'vip');
 
 -- ----------------------------
 -- Table structure for role_authority
@@ -108,6 +109,10 @@ INSERT INTO `role_authority` VALUES ('admin', 'game');
 INSERT INTO `role_authority` VALUES ('admin', 'manage');
 INSERT INTO `role_authority` VALUES ('admin', 'zip');
 INSERT INTO `role_authority` VALUES ('manager', 'game');
+INSERT INTO `role_authority` VALUES ('vip', 'chart');
+INSERT INTO `role_authority` VALUES ('vip', 'excel');
+INSERT INTO `role_authority` VALUES ('vip', 'game');
+INSERT INTO `role_authority` VALUES ('vip', 'zip');
 
 -- ----------------------------
 -- Table structure for send_record
@@ -139,12 +144,12 @@ CREATE TABLE `user` (
   `money` decimal(20,3) DEFAULT '0.000' COMMENT '账户余额',
   `updtime` varchar(100) NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '更新时间',
   `createtime` varchar(100) NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
-  `syzt` varchar(10) NOT NULL COMMENT '使用状态，Y：可用，N：删除状态，不可用',
+  `syzt` int(10) NOT NULL COMMENT '使用状态，0：正常，1：删除状态，不可用，2：账号禁用',
   `username` varchar(40) DEFAULT NULL COMMENT '登录用户名',
   `address` varchar(200) DEFAULT NULL COMMENT '地址信息',
   `email` varchar(40) NOT NULL COMMENT '邮箱',
   `qq` varchar(30) DEFAULT NULL COMMENT '用户qq号',
-  `yaoqingma` varchar(20) NOT NULL COMMENT '关联邀请码',
+  `yaoqingma` varchar(20) DEFAULT NULL COMMENT '关联邀请码',
   PRIMARY KEY (`id`,`phone`),
   UNIQUE KEY `uq_phone` (`phone`),
   KEY `yaoqingma` (`yaoqingma`)
@@ -153,8 +158,8 @@ CREATE TABLE `user` (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('1', '18636967836', 'PCx60Yve4yvKEVRy', 'f0ff4d62975a4ea7582040e3fb1a33662748cc65', null, null, '0.000', '2016-08-24 18:38:26', '2016-08-24 18:38:26', 'Y', null, null, 'qwt311@126.com', null, '1561561');
-INSERT INTO `user` VALUES ('2', '18636967833', 'RBMB2HdUKYmlQZxo', 'ef0979c8c986ab7dc61220bd7c47570163c498d6', null, null, '0.000', '2016-08-26 15:23:14', '2016-08-26 15:23:14', 'Y', null, null, 'qwt311@126.co', null, '1561561');
+INSERT INTO `user` VALUES ('1', '18636967836', 'PCx60Yve4yvKEVRy', 'f0ff4d62975a4ea7582040e3fb1a33662748cc65', null, null, '0.000', '2016-08-24 18:38:26', '2016-08-24 18:38:26', '0', null, null, 'qwt311@126.com', null, '1561561');
+INSERT INTO `user` VALUES ('2', '18636967833', 'RBMB2HdUKYmlQZxo', 'ef0979c8c986ab7dc61220bd7c47570163c498d6', null, null, '0.000', '2016-08-26 15:23:14', '2016-08-26 15:23:14', '0', null, null, 'qwt311@126.co', null, '1561561');
 
 -- ----------------------------
 -- Table structure for user_role
@@ -165,8 +170,8 @@ CREATE TABLE `user_role` (
   `rolename` varchar(255) NOT NULL COMMENT '用户具有的角色',
   KEY `phone` (`phone`),
   KEY `rolename` (`rolename`),
-  CONSTRAINT `rolename` FOREIGN KEY (`rolename`) REFERENCES `role` (`rolename`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `phone` FOREIGN KEY (`phone`) REFERENCES `user` (`phone`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `phone` FOREIGN KEY (`phone`) REFERENCES `user` (`phone`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `rolename` FOREIGN KEY (`rolename`) REFERENCES `role` (`rolename`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
