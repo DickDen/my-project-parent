@@ -19,11 +19,16 @@ public class User  implements Serializable {
     /** 昵称  **/
     private String nicheng;
 
-    /**  性别  **/
+    /**  性别 : 0为男，1为女**/
     private Byte sex;
+
+    /**  性别描述   **/
+    private String sexStr;
 
     /** 账户余额  **/
     private BigDecimal money;
+
+    private String monetStr;
 
     private String updtime;
 
@@ -107,11 +112,36 @@ public class User  implements Serializable {
     }
 
     public Byte getSex() {
+
         return sex;
     }
 
     public void setSex(Byte sex) {
+        if(sex != null && !"".equals(sex)){
+            if(sex == 0){
+                this.sexStr = "男";
+            }
+            if(sex == 1){
+                this.sexStr = "女";
+            }
+        }
         this.sex = sex;
+    }
+
+    public void setSexStr(String sexStr){
+        if(sexStr != null && !"".equals(sexStr)){
+            if(sexStr.equals("男")){
+                this.sex = 0;
+            }
+            if(sexStr.equals("女")){
+                this.sex = 1;
+            }
+        }
+        this.sexStr = sexStr;
+    }
+
+    public String getSexStr(){
+        return sexStr;
     }
 
     public BigDecimal getMoney() {
@@ -120,6 +150,24 @@ public class User  implements Serializable {
 
     public void setMoney(BigDecimal money) {
         this.money = money;
+    }
+
+    public String getMonetStr() {
+        return monetStr;
+    }
+
+    public void setMonetStr(String monetStr) {
+        if(null != monetStr && !"".equals(monetStr)){
+            Double moneyDouble = 0.0;
+            try{
+                moneyDouble = Double.valueOf(monetStr);
+            }catch(Exception e){
+
+            }
+            this.money = BigDecimal.valueOf(moneyDouble);
+
+        }
+        this.monetStr = monetStr;
     }
 
     public String getUpdtime() {
@@ -192,5 +240,26 @@ public class User  implements Serializable {
 
     public void setQq(String qq) {
         this.qq = qq;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", phone='" + phone + '\'' +
+                ", password='" + password + '\'' +
+                ", nicheng='" + nicheng + '\'' +
+                ", sex=" + sex +
+                ", money=" + money +
+                ", updtime='" + updtime + '\'' +
+                ", createtime='" + createtime + '\'' +
+                ", syzt=" + syzt +
+                ", username='" + username + '\'' +
+                ", address='" + address + '\'' +
+                ", email='" + email + '\'' +
+                ", salt='" + salt + '\'' +
+                ", yaoqingma='" + yaoqingma + '\'' +
+                ", qq='" + qq + '\'' +
+                '}';
     }
 }

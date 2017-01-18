@@ -38,7 +38,6 @@
 </head>
 <body>
 #*#parse("common/time.vm")*#
-#parse("common/common.vm")
 #parse("common/head.vm")
 <div class="header">
     <h1>这个网站正在建设中</h1>

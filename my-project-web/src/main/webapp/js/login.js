@@ -114,7 +114,7 @@ var project = {
 
                 }
 
-                checkLoginPhone ();
+                //checkLoginPhone ();
 
                 //验证密码
                 var pwdmin = 6;

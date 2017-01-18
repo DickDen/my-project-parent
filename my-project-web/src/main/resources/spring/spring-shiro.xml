@@ -60,6 +60,7 @@
                 /code/** = anon
                 /email/** = anon
 
+                /resource/** = authc,perms[admin:manage]
                 /chart/** = authc
                 <!-- perms[user:query]表示访问此连接需要权限为user:query的用户 -->
                 /game/** = authc,perms[admin:manage]
